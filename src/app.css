@@ -1,0 +1,42 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--g1);
+  }
+}
+
+:root {
+  --feat: #ED8936;
+  --birthday: #4299E1;
+  --relationship: #EF4444;
+  --important: #14B8A6;
+  --g1: #F8F9FA;
+  --g2: #EDF2F7;
+  --g3: #E2E8F0;
+  --g4: #CBD5E0;
+  --g5: #A0AEC0;
+  --g6: #718096;
+  --g7: #4A5568;
+}
+body {
+  height: 100vh;
+  background-color: var(--g1);
+}
+[type='radio']:checked {
+  background-image: unset;
+  background-color: currentColor;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.wrap {
+  margin: 0 auto;
+  padding: 0 20px;
+}
