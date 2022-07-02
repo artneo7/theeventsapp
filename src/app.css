@@ -26,6 +26,7 @@
 body {
   height: 100vh;
   background-color: var(--g1);
+  overflow-x: hidden;
 }
 [type='radio']:checked {
   background-image: unset;
@@ -39,4 +40,25 @@ body {
 .wrap {
   margin: 0 auto;
   padding: 0 20px;
+}
+.btn-outline {
+  color: var(--g5);
+  border-color: var(--g4);
+}
+.btn-ghost {
+  color: var(--g5);
+}
+.btn-ghost:hover {
+  background-color: transparent;
+  border-color: var(--g4);
+}
+.btn-outline:hover {
+  background-color: transparent;
+  color: var(--g6);
+  border-color: var(--g5);
+}
+.btn[disabled] {
+  background-color: var(--g2);
+  color: var(--g6);
+  opacity: .3;
 }

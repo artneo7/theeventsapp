@@ -1,6 +1,7 @@
 <script>
   import UserProfile from '../components/UserProfile.svelte';
   import editMode from '../stores/store';
+  import Modal from './Modal.svelte';
 
   // Manage editMode state
   let addNewHandler = () => {
@@ -21,10 +22,15 @@
         class="btn btn-outline"
         on:click={addNewHandler}>Add new</button
       >
-      <UserProfile />
+      <label class="btn btn-outline modal-button" for="signup-form">Sign up</label>
+      <label class="btn btn-ghost modal-button" for="login-form">Login</label>
     </div>
   </div>
 </header>
+
+<Modal id="login-form">
+  <h1>Login form</h1>
+</Modal>
 
 <style>
   .header {
@@ -54,6 +60,6 @@
   .content {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
   }
 </style>
