@@ -63,7 +63,7 @@ body {
   border-color: var(--g5);
 }
 .btn[disabled] {
-  background-color: var(--g2);
+  background-color: var(--g1);
   color: var(--g6);
   opacity: .3;
 }

@@ -6,19 +6,12 @@
   let eventType;
   let eventName;
   let eventDate;
+  let formStep = 1;
 
+  $: $formInputs.type = eventType;
   $: $formInputs.name = eventName;
   $: $formInputs.date = eventDate;
 </script>
-
-<button on:click="{() => $formInputs.type = "Birthday"}">Click here</button>
-
-<ul style="display: grid">
-  <li>Type: {$formInputs.type}</li>
-  <li>Name: {$formInputs.name}</li>
-  <li>Date: {$formInputs.date}</li>
-</ul>
-
 
 <section class="form">
   <div class="form__wrapper">
@@ -72,9 +65,23 @@
       </div>
     </div>
 
-    <Input bind:value={eventName} label="Event name" placeholder="Type the event name here" />
+    {#if formStep === 1}
+    <Input bind:value={eventName} label="Event name" placeholder="Click here to upload an image" />
+    <Input bind:value={eventDate} label="Date" mask="00/00/0000" placeholder="Type the event date here" />
+    {:else if formStep === 2}
+    <input type="file" name="img" id="img">
+    <!-- <Input bind:value={eventName} label="Image" placeholder="Type the event name here" /> -->
+    <Input bind:value={eventDate} label="Description" placeholder="Type the event description here" />
+    {/if}
 
-    <Input bind:value={eventDate} label="Date" mask="00/00/0000" />
+    <div class="form__group">
+      {#if formStep === 2}
+      <button class="btn btn-outline" on:click="{() => formStep = 1}">Return</button>
+      <button class="btn btn-accent btn__publish">Publish</button>
+      {:else if formStep === 1}
+      <button class="btn btn-outline btn__step" on:click="{() => formStep = 2}">Next</button>
+      {/if}
+    </div>
   </div>
 
   <button class="btn btn-circle btn-outline form__btn" on:click="{() => $editMode = false}">
@@ -134,5 +141,13 @@
   }
   input#important {
     --tw-ring-color: var(--important);
+  }
+  .btn__step {
+    margin-left: auto;
+  }
+  .form__group {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
   }
 </style>
