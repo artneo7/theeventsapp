@@ -41,6 +41,11 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+/* Buttons */
+.btn {
+  border-width: 2px;
+}
 .btn-outline {
   color: var(--g5);
   border-color: var(--g4);
@@ -61,4 +66,18 @@ body {
   background-color: var(--g2);
   color: var(--g6);
   opacity: .3;
+}
+
+/* Form */
+label.label {
+  display: block;
+  padding: 0;
+}
+.form-control input {
+  color: var(--g6);
+  border-color: var(--g3);
+}
+.form-control input:focus {
+  --tw-ring-color: var(--g2);
+  border-color: var(--g2);
 }

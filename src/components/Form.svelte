@@ -1,7 +1,24 @@
 <script>
   import autoAnimate from '@formkit/auto-animate';
-  let eventType = '';
+  import {editMode, formInputs} from '../stores/store';
+  import Input from '../components/Input.svelte'
+
+  let eventType;
+  let eventName;
+  let eventDate;
+
+  $: $formInputs.name = eventName;
+  $: $formInputs.date = eventDate;
 </script>
+
+<button on:click="{() => $formInputs.type = "Birthday"}">Click here</button>
+
+<ul style="display: grid">
+  <li>Type: {$formInputs.type}</li>
+  <li>Name: {$formInputs.name}</li>
+  <li>Date: {$formInputs.date}</li>
+</ul>
+
 
 <section class="form">
   <div class="form__wrapper">
@@ -29,7 +46,7 @@
           id="birthday"
           class:blue={eventType === 'Birthday'}
         />
-        <label for="birthday">Birthday</label>
+        <label for="birthday" class="type__label">Birthday</label>
       </div>
       <div class="type">
         <input
@@ -40,7 +57,7 @@
           id="relationship"
           class:red={eventType === 'Relationship'}
         />
-        <label for="relationship">Relationship</label>
+        <label for="relationship" class="type__label">Relationship</label>
       </div>
       <div class="type">
         <input
@@ -51,13 +68,24 @@
           id="important"
           class:green={eventType === 'Important'}
         />
-        <label for="important">Important</label>
+        <label for="important" class="type__label">Important</label>
       </div>
     </div>
+
+    <Input bind:value={eventName} label="Event name" placeholder="Type the event name here" />
+
+    <Input bind:value={eventDate} label="Date" mask="00/00/0000" />
   </div>
+
+  <button class="btn btn-circle btn-outline form__btn" on:click="{() => $editMode = false}">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
 </section>
 
 <style>
+  .form {
+    position: relative;
+  }
   .form__wrapper {
     padding: 32px;
     background-color: #fff;
@@ -84,6 +112,9 @@
     display: flex;
     gap: 6px;
   }
+  .type__label {
+    cursor: pointer;
+  }
   .blue {
     color: var(--birthday);
   }
@@ -92,5 +123,16 @@
   }
   .green {
     color: var(--important);
+  }
+  .form__btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  input#relationship {
+    --tw-ring-color: var(--relationship);
+  }
+  input#important {
+    --tw-ring-color: var(--important);
   }
 </style>

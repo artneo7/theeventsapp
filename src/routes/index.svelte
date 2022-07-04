@@ -46,10 +46,10 @@
   </div>
 </main>
 
-<h1>Login test</h1>
+<!-- <h1>Login test</h1>
 <input type="text" bind:value="{email}" />
 <input type="password" bind:value="{password}" />
-<button class="btn" on:click={handleCreateAccount}>Login</button>
+<button class="btn" on:click={handleCreateAccount}>Login</button> -->
 
 <style>
   .main {
