@@ -6,11 +6,13 @@
   let eventType;
   let eventName;
   let eventDate;
+  let eventDescription;
   let formStep = 1;
 
   $: $formInputs.type = eventType;
   $: $formInputs.name = eventName;
   $: $formInputs.date = eventDate;
+  $: $formInputs.description = eventDescription;
 </script>
 
 <section class="form">
@@ -71,7 +73,7 @@
     {:else if formStep === 2}
     <input type="file" name="img" id="img">
     <!-- <Input bind:value={eventName} label="Image" placeholder="Type the event name here" /> -->
-    <Input bind:value={eventDate} label="Description" placeholder="Type the event description here" />
+    <Input bind:value={eventDescription} label="Description" placeholder="Type the event description here" />
     {/if}
 
     <div class="form__group">

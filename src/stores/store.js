@@ -8,7 +8,8 @@ export const formInputs = writable([{
   step: null,
   type: null,
   title: null,
-  date: null
+  date: null,
+  description: null
 }]);
 
 export default store;

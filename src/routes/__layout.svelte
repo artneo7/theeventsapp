@@ -1,3 +1,13 @@
+<!-- <script context="module">
+  export const load = ({session}) => {
+    return {
+      props: {
+        session
+      }
+    };
+  }
+</script> -->
+
 <script>
   import '../app.css';
   import Header from '../components/Header.svelte';
