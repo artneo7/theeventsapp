@@ -2,30 +2,42 @@
   import autoAnimate from '@formkit/auto-animate';
   import {editMode, formInputs} from '../stores';
   import Input from '../components/Input.svelte'
+  import { EVENT_POST} from '../api';
+  import { getCookie } from '../helpers';
+  
 
-  let eventType;
-  let eventName;
-  let eventDate;
-  let eventDescription;
-  let formStep = 1;
+  let handlePost = () => {
+    const formData = new FormData();
+    formData.append('type', $formInputs[0].type);
+    formData.append('title', $formInputs[0].title);
+    formData.append('date', $formInputs[0].date);
+    formData.append('description', $formInputs[0].description);
 
-  $: $formInputs.type = eventType;
-  $: $formInputs.name = eventName;
-  $: $formInputs.date = eventDate;
-  $: $formInputs.description = eventDescription;
+    const token = getCookie('session');
+    const {url, options} = EVENT_POST(formData, token);
+    fetch(url, options).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      console.log(response);
+      return response.json();
+    }).then((json) => {
+      console.log(json);
+    });
+  }
 </script>
 
 <section class="form">
   <div class="form__wrapper">
     <ul use:autoAnimate>
       <li>Add a new</li>
-      {#if eventType}
+      {#if $formInputs[0].type}
         <li
-          class:blue={eventType === 'Birthday'}
-          class:red={eventType === 'Relationship'}
-          class:green={eventType === 'Important'}
+          class:blue={$formInputs[0].type === 'Birthday'}
+          class:red={$formInputs[0].type === 'Relationship'}
+          class:green={$formInputs[0].type === 'Important'}
         >
-          &nbsp;{eventType}
+          &nbsp;{$formInputs[0].type}
         </li>
       {/if}
       <li>&nbsp;event</li>
@@ -34,54 +46,54 @@
     <div class="types">
       <div class="type">
         <input
-          on:change={() => (eventType = 'Birthday')}
+          on:change={() => ($formInputs[0].type = 'Birthday')}
           class="radio"
           type="radio"
           name="type"
           id="birthday"
-          class:blue={eventType === 'Birthday'}
+          class:blue={$formInputs[0].type === 'Birthday'}
         />
         <label for="birthday" class="type__label">Birthday</label>
       </div>
       <div class="type">
         <input
-          on:change={() => (eventType = 'Relationship')}
+          on:change={() => ($formInputs[0].type = 'Relationship')}
           class="radio"
           type="radio"
           name="type"
           id="relationship"
-          class:red={eventType === 'Relationship'}
+          class:red={$formInputs[0].type === 'Relationship'}
         />
         <label for="relationship" class="type__label">Relationship</label>
       </div>
       <div class="type">
         <input
-          on:change={() => (eventType = 'Important')}
+          on:change={() => ($formInputs[0].type = 'Important')}
           class="radio"
           type="radio"
           name="type"
           id="important"
-          class:green={eventType === 'Important'}
+          class:green={$formInputs[0].type === 'Important'}
         />
         <label for="important" class="type__label">Important</label>
       </div>
     </div>
 
-    {#if formStep === 1}
-    <Input bind:value={eventName} label="Event name" placeholder="Click here to upload an image" />
-    <Input bind:value={eventDate} label="Date" mask="00/00/0000" placeholder="Type the event date here" />
-    {:else if formStep === 2}
+    {#if $formInputs[0].step === 1}
+    <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Click here to upload an image" />
+    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" placeholder="Type the event date here" />
+    {:else if $formInputs[0].step === 2}
     <input type="file" name="img" id="img">
     <!-- <Input bind:value={eventName} label="Image" placeholder="Type the event name here" /> -->
-    <Input bind:value={eventDescription} label="Description" placeholder="Type the event description here" />
+    <Input bind:value={$formInputs[0].description} label="Description" placeholder="Type the event description here" />
     {/if}
 
     <div class="form__group">
-      {#if formStep === 2}
-      <button class="btn btn-outline" on:click="{() => formStep = 1}">Return</button>
-      <button class="btn btn-accent btn__publish">Publish</button>
-      {:else if formStep === 1}
-      <button class="btn btn-outline btn__step" on:click="{() => formStep = 2}">Next</button>
+      {#if $formInputs[0].step === 2}
+      <button class="btn btn-outline" on:click="{() => $formInputs[0].step = 1}">Return</button>
+      <button class="btn btn-accent btn__publish" on:click="{handlePost}">Publish</button>
+      {:else if $formInputs[0].step === 1}
+      <button class="btn btn-outline btn__step" on:click="{() => $formInputs[0].step = 2}">Next</button>
       {/if}
     </div>
   </div>

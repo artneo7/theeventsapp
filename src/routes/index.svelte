@@ -1,5 +1,4 @@
 <script>
-  import Header from '../components/Header.svelte';
   import Form from '../components/Form.svelte';
   import {TOKEN_POST, EVENT_POST} from '../api';
   import {formInputs} from '../stores';
@@ -51,11 +50,11 @@
     <Form />
 
     <ul style="display: grid, align-items: start;">
-      <li>Step: {$formInputs.step}</li>
-      <li>Type: {$formInputs.type}</li>
-      <li>Name: {$formInputs.name}</li>
-      <li>Date: {$formInputs.date}</li>
-      <li>Description: {$formInputs.description}</li>
+      <li>Step: {$formInputs[0].step}</li>
+      <li>Type: {$formInputs[0].type}</li>
+      <li>Name: {$formInputs[0].title}</li>
+      <li>Date: {$formInputs[0].date}</li>
+      <li>Description: {$formInputs[0].description}</li>
     </ul>
 
   </div>
