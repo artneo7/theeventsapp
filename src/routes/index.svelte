@@ -1,8 +1,26 @@
 <script>
   import Header from '../components/Header.svelte';
   import Form from '../components/Form.svelte';
-  import {USER_POST, USER_GET, TOKEN_POST, TOKEN_VALIDATE_POST} from '../api';
-  import {formInputs} from '../stores/store';
+  import {TOKEN_POST, EVENT_POST} from '../api';
+  import {formInputs} from '../stores';
+  import { getCookie } from '../helpers';
+
+  let handleEvent = () => {
+    const formData = new FormData();
+    formData.append('title', 'Teste 1');
+
+    const token = getCookie('session');
+    const {url, options} = EVENT_POST(formData, token);
+    fetch(url, options).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      console.log(response);
+      return response.json();
+    }).then((json) => {
+      console.log(json);
+    });
+  }
 
   let handleLogin = () => {
   const {url, options} = TOKEN_POST({
@@ -19,6 +37,8 @@
     });
   }
 </script>
+
+<button class="btn btn-primary" on:click="{handleEvent}">Postar</button>
 
 <button class="btn" on:click="{handleLogin}">Login</button>
 

@@ -1,5 +1,18 @@
 const API_URL = 'http://theeventsappapi.test/json';
 
+export function EVENT_POST(formData, token) {
+  return {
+    url: API_URL + '/api/event',
+    options: {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    },
+  };
+}
+
 export function TOKEN_POST(body) {
   return {
     url: API_URL + '/jwt-auth/v1/token',

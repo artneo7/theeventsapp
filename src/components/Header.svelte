@@ -1,6 +1,6 @@
 <script>
   import UserProfile from '../components/UserProfile.svelte';
-  import {editMode} from '../stores/store';
+  import {editMode} from '../stores';
   import Modal from './Modal.svelte';
 
   // Manage editMode state

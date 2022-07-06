@@ -1,6 +1,6 @@
 <script>
   import autoAnimate from '@formkit/auto-animate';
-  import {editMode, formInputs} from '../stores/store';
+  import {editMode, formInputs} from '../stores';
   import Input from '../components/Input.svelte'
 
   let eventType;
