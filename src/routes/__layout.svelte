@@ -1,17 +1,19 @@
-<!-- <script context="module">
-  export const load = ({session}) => {
+<script context="module">
+  export async function load({session}) {
     return {
       props: {
         session
       }
     };
   }
-</script> -->
+</script>
 
 <script>
   import '../app.css';
   import Header from '../components/Header.svelte';
   import Footer from '../components/Footer.svelte';
+
+  export let session;
 </script>
 
 <svelte:head>
@@ -24,6 +26,8 @@
   <link rel="icon" type="image/svg" href="/logo.png" />
 </svelte:head>
 
+{#if session.isLoggedIn}
 <Header />
+{/if}
 <slot />
 <Footer />

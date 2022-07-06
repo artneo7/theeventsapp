@@ -2,12 +2,12 @@
   import Header from '../components/Header.svelte';
   import Form from '../components/Form.svelte';
   import {USER_POST, USER_GET, TOKEN_POST, TOKEN_VALIDATE_POST} from '../api';
-  import {formInputs, validateUser} from '../stores/store';
+  import {formInputs} from '../stores/store';
 
   let handleLogin = () => {
   const {url, options} = TOKEN_POST({
-    "username": email,
-    "password": password
+    "username": "adm",
+    "password": "123"
   });
   fetch(url, options).then((response) => {
       if (!response.ok) {
@@ -15,10 +15,12 @@
       }
       return response.json();
     }).then((json) => {
-      localStorage.setItem('token', json.token)
+      document.cookie = `session=${json.token}`
     });
   }
 </script>
+
+<button class="btn" on:click="{handleLogin}">Login</button>
 
 <svelte:head>
   <title>TheEventsApp</title>
