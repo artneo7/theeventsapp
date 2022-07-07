@@ -9,7 +9,7 @@
 <input type="checkbox" id="{id}" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box relative">
-    <label for="{id}" class="btn btn-sm btn-circle absolute right-2 top-2"
+    <label for="{id}" class="btn btn-sm btn-circle btn-outline absolute right-2 top-2"
       >✕</label
     >
     <slot />

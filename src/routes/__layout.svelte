@@ -26,8 +26,6 @@
   <link rel="icon" type="image/svg" href="/logo.png" />
 </svelte:head>
 
-{#if session.isLoggedIn}
-<Header />
-{/if}
+<Header login={session.isLoggedIn} />
 <slot />
 <Footer />

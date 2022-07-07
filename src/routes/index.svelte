@@ -20,26 +20,7 @@
       console.log(json);
     });
   }
-
-  let handleLogin = () => {
-  const {url, options} = TOKEN_POST({
-    "username": "adm",
-    "password": "123"
-  });
-  fetch(url, options).then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      return response.json();
-    }).then((json) => {
-      document.cookie = `session=${json.token}`
-    });
-  }
 </script>
-
-<button class="btn btn-primary" on:click="{handleEvent}">Postar</button>
-
-<button class="btn" on:click="{handleLogin}">Login</button>
 
 <svelte:head>
   <title>TheEventsApp</title>

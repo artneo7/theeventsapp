@@ -1,12 +1,22 @@
 <script>
   import UserProfile from '../components/UserProfile.svelte';
-  import {editMode} from '../stores';
+  import { editMode } from '../stores';
   import Modal from './Modal.svelte';
+  import Login from './Login.svelte'
+  import { goto } from '$app/navigation'
+  
+  export let login;
 
   // Manage editMode state
   let addNewHandler = () => {
     $editMode = !$editMode;
   };
+
+  // Handle Logout
+  let handleLogout = () => {
+    document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+  }
 </script>
 
 <header class="header">
@@ -16,20 +26,26 @@
       TheEventsApp
     </a>
 
+    {#if login}
     <div class="content">
       <button
         disabled={$editMode}
         class="btn btn-outline"
         on:click={addNewHandler}>Add new</button
       >
+      <button class="btn btn-ghost" on:click="{handleLogout}">Logout</button>
+    </div>
+    {:else}
+    <div class="content">
       <label class="btn btn-outline modal-button" for="signup-form">Sign up</label>
       <label class="btn btn-ghost modal-button" for="login-form">Login</label>
     </div>
+    {/if}
   </div>
 </header>
 
 <Modal id="login-form">
-  <h1>Login form</h1>
+  <Login />
 </Modal>
 
 <style>

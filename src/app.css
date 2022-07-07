@@ -76,8 +76,24 @@ label.label {
 .form-control input {
   color: var(--g6);
   border-color: var(--g3);
+  border-width: 2px;
 }
 .form-control input:focus {
   --tw-ring-color: var(--g2);
   border-color: var(--g2);
+}
+.form .form-control {
+  margin-top: 20px;
+  padding: 20px 0 0;
+  position: relative;
+}
+.form .form-control::before {
+  content: '';
+  display: block;
+  height: 2px;
+  width: calc(100% + 64px);
+  background-color: var(--g1);
+  position: absolute;
+  top: 0;
+  left: -32px;
 }
