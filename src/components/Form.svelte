@@ -43,6 +43,7 @@
       <li>&nbsp;event</li>
     </ul>
 
+    {#if $formInputs[0].step === 1}
     <div class="types">
       <div class="type">
         <input
@@ -78,12 +79,14 @@
         <label for="important" class="type__label">Important</label>
       </div>
     </div>
+    {/if}
+
 
     {#if $formInputs[0].step === 1}
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Click here to upload an image" />
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" />
     {:else if $formInputs[0].step === 2}
-    <input type="file" name="img" id="img">
+    <Input label="Image" type="file" name="img" id="img" class="form__img" />
     <Input bind:value={$formInputs[0].description} label="Description" placeholder="Type the event description here" />
     {/if}
 

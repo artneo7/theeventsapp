@@ -50,8 +50,8 @@
 
 <section class="login">
   <h1 class="title">Login</h1>
-  <Input bind:value={email} label="Email" />
-  <Input bind:value={password} label="Password" type="password" />
+  <Input bind:value={email} label="Email" class="form__login" />
+  <Input bind:value={password} label="Password" type="password" class="form__login" />
   <div use:autoAnimate>
     {#if error}
     <div class="alert alert-warning">
