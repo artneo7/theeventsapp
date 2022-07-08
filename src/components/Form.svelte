@@ -5,6 +5,10 @@
   import { EVENT_POST} from '../api';
   import { getCookie } from '../helpers';
   
+  let currentEvent;
+  $: if (currentEvent) {
+    $formInputs[0].type = currentEvent;
+  }
 
   let handlePost = () => {
     const formData = new FormData();
@@ -24,6 +28,13 @@
     }).then((json) => {
       console.log(json);
     });
+  }
+
+  let handleClose = () => {
+    $editMode = false;
+    currentEvent = null;
+    $formInputs[0].type = null;
+    $formInputs[0].preview = null;
   }
 </script>
 
@@ -47,6 +58,8 @@
     <div class="types">
       <div class="type">
         <input
+          bind:group="{currentEvent}"
+          value="Birthday"
           on:change={() => ($formInputs[0].type = 'Birthday')}
           class="radio"
           type="radio"
@@ -58,6 +71,8 @@
       </div>
       <div class="type">
         <input
+          bind:group="{currentEvent}"
+          value="Relationship"
           on:change={() => ($formInputs[0].type = 'Relationship')}
           class="radio"
           type="radio"
@@ -69,6 +84,8 @@
       </div>
       <div class="type">
         <input
+          bind:group="{currentEvent}"
+          value="Important"
           on:change={() => ($formInputs[0].type = 'Important')}
           class="radio"
           type="radio"
@@ -104,9 +121,8 @@
     </div>
   </div>
 
-  <button class="btn btn-circle btn-outline form__btn" on:click="{() => $editMode = false}">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-  </button>
+  <button class="btn btn-sm btn-circle btn-outline form__btn" on:click="{handleClose}">✕</button>
+
 </section>
 
 <style>
