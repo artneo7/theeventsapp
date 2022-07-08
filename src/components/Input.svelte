@@ -49,7 +49,9 @@
     margin-bottom: 8px;
   }
   label.label {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 0;
   }
   .form-control input,

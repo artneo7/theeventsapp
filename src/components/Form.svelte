@@ -83,7 +83,7 @@
 
 
     {#if $formInputs[0].step === 1}
-    <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Click here to upload an image" />
+    <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" />
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" />
     {:else if $formInputs[0].step === 2}
     <Input label="Image" type="file" name="img" id="img" class="form__img" />
@@ -172,8 +172,12 @@
   .steps {
     margin-left: auto;
   }
+  .step {
+    min-width: 52px;
+  }
   .step::before {
     background-color: var(--g3);
+    max-width: 32px;
   }
   .step::after {
     color: var(--g5);

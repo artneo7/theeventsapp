@@ -63,9 +63,14 @@ body {
   border-color: var(--g5);
 }
 .btn[disabled] {
-  background-color: var(--g1);
+  background-color: #fff;
   color: var(--g6);
-  opacity: .3;
+  opacity: .2;
+}
+.btn[disabled]:hover {
+  background-color: #fff;
+  color: var(--g6);
+  border-color: var(--g4);
 }
 
 /* Scrollbar CSS */
