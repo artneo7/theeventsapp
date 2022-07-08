@@ -5,6 +5,7 @@
   export let placeholder = '';
   export let value = '';
   export let mask = false;
+  export let maxlength;
 
   export let type = 'text';
   const setType = (node) => {
@@ -24,7 +25,7 @@
   {#if mask}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" use:imask={options} on:complete={complete} />
+    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" use:imask={options} on:complete={complete} {maxlength} />
   </label>
   {:else}
   <label class="label">

@@ -81,10 +81,9 @@
 
     {#if $formInputs[0].step === 1}
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Click here to upload an image" />
-    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" placeholder="Type the event date here" />
+    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" />
     {:else if $formInputs[0].step === 2}
     <input type="file" name="img" id="img">
-    <!-- <Input bind:value={eventName} label="Image" placeholder="Type the event name here" /> -->
     <Input bind:value={$formInputs[0].description} label="Description" placeholder="Type the event description here" />
     {/if}
 
