@@ -89,9 +89,13 @@
     {/if}
 
     <div class="form__group">
+      <ul class="steps">
+        <li data-content="1" class="step step-neutral"></li>
+        <li data-content="2" class="step" class:step-neutral={$formInputs[0].step === 2}></li>
+      </ul>
       {#if $formInputs[0].step === 2}
-      <button class="btn btn-outline" on:click="{() => $formInputs[0].step = 1}">Return</button>
-      <button class="btn btn-accent btn__publish" on:click="{handlePost}">Publish</button>
+      <button class="btn btn-outline btn__return" on:click="{() => $formInputs[0].step = 1}">Return</button>
+      <button class="btn btn-primary btn__publish" on:click="{handlePost}">Publish</button>
       {:else if $formInputs[0].step === 1}
       <button class="btn btn-outline btn__step" on:click="{() => $formInputs[0].step = 2}">Next</button>
       {/if}
@@ -108,6 +112,7 @@
     position: relative;
   }
   .form__wrapper {
+    min-height: 460px;
     padding: 32px;
     background-color: #fff;
     border-radius: 16px;
@@ -156,12 +161,30 @@
   input#important {
     --tw-ring-color: var(--important);
   }
-  .btn__step {
-    margin-left: auto;
-  }
   .form__group {
     margin-top: 32px;
+    gap: 24px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+  }
+  .steps {
+    margin-left: auto;
+  }
+  .step::before {
+    background-color: var(--g3);
+  }
+  .step::after {
+    color: var(--g5);
+    background-color: var(--g3);
+  }
+  .step-neutral::after {
+    color: #fff;
+    background-color: var(--g5);
+  }
+  .steps .step-neutral + .step-neutral:before {
+    background-color: var(--g5);
+  }
+  .btn__return {
+    order: -1;
   }
 </style>

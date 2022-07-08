@@ -4,14 +4,6 @@
   import {formInputs} from '../stores';
   import { getCookie } from '../helpers';
 
-  let testToken = () => {
-    const {url, options} = TOKEN_VALIDATE_POST("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90aGVldmVudHNhcHBhcGkudGVzdCIsImlhdCI6MTY1NzI4NjM3NywibmJmIjoxNjU3Mjg2Mzc3LCJleHAiOjE2NTczNzI3NzcsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.8SL0QSfJQxfPdxpt0LxN-6hmGINjtDdqijflh05h_bU");
-
-    fetch(url, options).then((response) => {
-      console.log(response);
-    })
-  }
-
   let handleEvent = () => {
     const formData = new FormData();
     formData.append('title', 'Teste 1');
@@ -33,8 +25,6 @@
 <svelte:head>
   <title>TheEventsApp</title>
 </svelte:head>
-
-<button class="btn" on:click="{testToken}">Test token</button>
 
 <main class="main">
   <div class="main__wrapper wrap">

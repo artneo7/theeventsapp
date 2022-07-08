@@ -76,7 +76,6 @@ label.label {
 .form-control input {
   color: var(--g6);
   border-color: var(--g3);
-  border-width: 2px;
 }
 .form-control input:focus {
   --tw-ring-color: var(--g2);
