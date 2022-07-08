@@ -5,7 +5,7 @@
   export let placeholder = '';
   export let value = '';
   export let mask = false;
-  export let maxlength;
+  export let maxlength = null;
 
   export let type = 'text';
   const setType = (node) => {
@@ -15,17 +15,23 @@
   const options = { 
 		mask: mask
 	};
-
-  function complete({ detail: imask }) {
-		console.log('completed', imask);
-	}
 </script>
 
 <div class="form-control w-full {$$props.class}">
   {#if mask}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" use:imask={options} on:complete={complete} {maxlength} />
+    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" use:imask={options} {maxlength} />
+  </label>
+  {:else if type === 'file'}
+  <label class="label">
+    <span class="label-text">{label}</span>
+    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full form__file" id="file_input" type="file" {maxlength}>
+  </label>
+  {:else if type === 'textarea'}
+  <label class="label">
+    <span class="label-text">{label}</span>
+    <textarea class="textarea textarea-bordered w-full"></textarea>
   </label>
   {:else}
   <label class="label">
@@ -46,11 +52,13 @@
     display: block;
     padding: 0;
   }
-  .form-control input {
+  .form-control input,
+  .form-control textarea {
     color: var(--g6);
     border-color: var(--g3);
   }
-  .form-control input:focus {
+  .form-control input:focus,
+  .form-control textarea:focus {
     --tw-ring-color: var(--g2);
     border-color: var(--g2);
   }
@@ -81,5 +89,19 @@
   }
   .form__login.form-control::before {
     content: initial;
+  }
+  .form__file {
+    color: var(--g6);
+    --tw-border-opacity: 1;
+    padding-top: 8px;
+    cursor: pointer;
+  }
+  ::file-selector-button {
+    background-color: transparent;
+    border: none;
+    display: none;
+  }
+  .form-control textarea {
+    min-height: 115px;
   }
 </style>

@@ -67,3 +67,25 @@ body {
   color: var(--g6);
   opacity: .3;
 }
+
+/* Scrollbar CSS */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--g5) #fff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--g1);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--g5);
+  border-radius: 16px;
+  border: 5px double #fff;
+}

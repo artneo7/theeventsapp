@@ -87,7 +87,7 @@
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" />
     {:else if $formInputs[0].step === 2}
     <Input label="Image" type="file" name="img" id="img" class="form__img" />
-    <Input bind:value={$formInputs[0].description} label="Description" placeholder="Type the event description here" />
+    <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
     {/if}
 
     <div class="form__group">
