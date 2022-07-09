@@ -1,8 +1,11 @@
 <script>
   import { formInputs } from '../stores';
   import { fly } from 'svelte/transition';
+  import Error from './Error.svelte';
   let title = '';
   let date = '';
+  let description = '';
+  let error = '';
 
   $: if ($formInputs[0].type) {
     $formInputs[0].preview = true;
@@ -11,6 +14,7 @@
   $: title = $formInputs[0].title;
   $: date = $formInputs[0].date;
   $: description = $formInputs[0].description;
+  $: error = $formInputs[0].error;
 
   $: if (date) {
     date = date.slice(0, 5);
@@ -21,26 +25,37 @@
   }
 </script>
 
-{#if $formInputs[0].preview}
-<section class:preview="{$formInputs[0].type}" transition:fly={{ y: -32 }}>
-  <div class="preview__img"></div>
-  <span class="preview__title" in:fly="{{ x: -32, delay: 300 }}">{title}</span>
-  <div class="preview__date" class:active={date}>{date}</div>
-  <div class="preview__type" in:fly="{{ x: 64, delay: 300 }}">
-    <span class="line-1"></span>
-    <span class="line-2"></span>
-    <span class="line-3"></span>
-  </div>
-  <p class="preview__description">{description}</p>
-</section>
-{/if}
+<div class="preview-container">
+  <Error {error} class="preview__alert" />
+
+  {#if $formInputs[0].preview}
+  <section class:preview="{$formInputs[0].type}" transition:fly={{ y: -32 }}>
+    <div class="preview__img"></div>
+    <span class="preview__title" in:fly="{{ y: -16, delay: 500 }}">{title}</span>
+    <div class="preview__date" class:active={date}>{date}</div>
+    <div class="preview__type" class:blue="{$formInputs[0].type === 'Birthday'}" class:red="{$formInputs[0].type === 'Relationship'}" class:green="{$formInputs[0].type === 'Important'}" in:fly="{{ x: 64, delay: 300 }}">
+      <span class="line-1"></span>
+      <span class="line-2"></span>
+      <span class="line-3"></span>
+    </div>
+    <p class="preview__description" in:fly="{{ y: -16, delay: 700 }}">{description}</p>
+  </section>
+  {/if}
+</div>
+
 
 <style>
+  .preview-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: -20px;
+  }
   .preview {
     border: 2px dashed var(--g3);
     border-radius: 16px;
     padding: 32px;
-    max-height: 360px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +107,7 @@
     display: block;
     width: 240px;
     height: 8px;
-    background-color: var(--birthday);
+    background-color: currentColor;
   }
   .preview__type .line-2 {
     display: block;
@@ -104,7 +119,16 @@
     display: block;
     width: 240px;
     height: 16px;
-    background-color: var(--birthday);
+    background-color: currentColor;
+  }
+  .blue {
+    color: var(--birthday);
+  }
+  .red {
+    color: var(--relationship);
+  }
+  .green {
+    color: var(--important);
   }
   .preview__description {
     font-size: 0.875rem;

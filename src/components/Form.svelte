@@ -2,7 +2,7 @@
   import autoAnimate from '@formkit/auto-animate';
   import {editMode, formInputs} from '../stores';
   import Input from '../components/Input.svelte'
-  import { EVENT_POST} from '../api';
+  import { EVENT_POST } from '../api';
   import { getCookie } from '../helpers';
   
   let currentEvent;
@@ -11,6 +11,10 @@
   }
 
   let handlePost = () => {
+    if (!$formInputs[0].title.trim()) {
+      return $formInputs[0].error = 'Please add the event name';
+    }
+
     const formData = new FormData();
     formData.append('type', $formInputs[0].type);
     formData.append('title', $formInputs[0].title);
@@ -25,6 +29,11 @@
       }
       return response.json();
     });
+  }
+
+  let handleStep = () => {
+    if (!$formInputs[0].type) return $formInputs[0].error = 'Please select an event type';
+    $formInputs[0].step = 2;
   }
 
   let handleClose = () => {
@@ -113,7 +122,7 @@
       <button class="btn btn-outline btn__return" on:click="{() => $formInputs[0].step = 1}">Return</button>
       <button class="btn btn-primary btn__publish" on:click="{handlePost}">Publish</button>
       {:else if $formInputs[0].step === 1}
-      <button class="btn btn-outline btn__step" on:click="{() => $formInputs[0].step = 2}">Next</button>
+      <button class="btn btn-outline btn__step" on:click="{handleStep}">Next</button>
       {/if}
     </div>
   </div>

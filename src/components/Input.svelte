@@ -31,7 +31,7 @@
   {:else if type === 'textarea'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <textarea bind:value on:input class="textarea textarea-bordered w-full"></textarea>
+    <textarea bind:value {placeholder} on:input class="textarea textarea-bordered w-full"></textarea>
   </label>
   {:else}
   <label class="label">
