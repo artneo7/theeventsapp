@@ -73,6 +73,11 @@ body {
   border-color: var(--g4);
 }
 
+/* Alert */
+.alert {
+  line-height: 1.3;
+}
+
 /* Scrollbar CSS */
 /* Firefox */
 * {

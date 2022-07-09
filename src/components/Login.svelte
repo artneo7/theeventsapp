@@ -14,7 +14,7 @@
     }, 3000);
   }
 
-  let handleLogin = () => {
+  let handleLogin = async () => {
     if (!email.trim()) {
       return error = 'Please type your email';
     }
@@ -30,21 +30,27 @@
       "password": password
     });
 
-    fetch(url, options).then((response) => {
-      console.log(response);
-        if (!response.ok) {
-          email = '';
-          password = '';
-          error = "Invalid email or password";
-          loading = false;
-          return;
-        }
+    try {
+      await fetch(url, options).then((response) => {
+        if (!response.ok) throw "Invalid email or password";
         return response.json();
       }).then((json) => {
         loading = false;
         document.cookie = `session=${json.token}`
         location.reload();
       });
+    } catch(err) {
+      if (err instanceof TypeError) {
+        err = "Something went wrong… please contact the developer";
+        error = err;
+        loading = false;
+      } else {
+        error = err;
+        loading = false;
+      }
+    } finally {
+      loading = false;
+    }
   }
 </script>
 
