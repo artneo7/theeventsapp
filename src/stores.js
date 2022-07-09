@@ -3,12 +3,12 @@ const store = writable(null);
 
 export const editMode = writable(null);
 export const formInputs = writable([{
-  preview: null,
+  preview: '',
   step: 1,
-  type: null,
-  title: null,
-  date: null,
-  description: null
+  type: '',
+  title: '',
+  date: '',
+  description: ''
 }]);
 
 export default store;

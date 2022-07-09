@@ -23,10 +23,7 @@
       if (!response.ok) {
         throw new Error(response.statusText)
       }
-      console.log(response);
       return response.json();
-    }).then((json) => {
-      console.log(json);
     });
   }
 
@@ -140,7 +137,7 @@
     display: flex;
     font-size: 1.125rem;
     font-weight: bold;
-    color: var(--g6);
+    color: var(--g5);
   }
   .types {
     display: flex;
