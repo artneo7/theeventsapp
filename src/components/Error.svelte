@@ -4,11 +4,17 @@
   import { fade } from 'svelte/transition';
   export let error = '';
 
-  $: if (error) {
-    setTimeout(() => {
+  // debounce
+  let timer;
+  const debounce = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
       $formInputs[0].error = null;
       error = '';
-    }, 3000);
+    }, 3000)
+  }
+  $: if (error) {
+    debounce();
   }
 </script>
 
