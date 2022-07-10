@@ -104,6 +104,11 @@
     display: none;
   }
   .form-control textarea {
-    min-height: 115px;
+    min-height: 116px;
+  }
+  .required .label-text::after {
+    content: "*";
+    color: var(--feat);
+    margin-left: 2px;
   }
 </style>

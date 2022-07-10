@@ -10,10 +10,10 @@
     $formInputs[0].type = currentEvent;
   }
 
-  let handlePost = () => {
-    if (!$formInputs[0].title.trim()) {
-      return $formInputs[0].error = 'Please add the event name';
-    }
+  let loading;
+  let handlePost = async () => {
+    if (!$formInputs[0].title.trim()) return $formInputs[0].error = 'Please add the event name';
+    if ($formInputs[0].date.trim().length !== 10) return $formInputs[0].error = 'Please add the event date';
 
     const formData = new FormData();
     formData.append('type', $formInputs[0].type);
@@ -22,13 +22,26 @@
     formData.append('description', $formInputs[0].description);
 
     const token = getCookie('session');
+
+    loading = true;
     const {url, options} = EVENT_POST(formData, token);
-    fetch(url, options).then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText)
+
+    try {
+      await fetch(url, options).then((response) => {
+        if (!response.ok) throw new Error(response.statusText)
+      });
+    } catch(err) {
+      if (err instanceof TypeError) {
+        err = "Something went wrong… please contact the developer";
+        $formInputs[0].error = err;
+        loading = false;
+      } else {
+        $formInputs[0].error = err;
+        loading = false;
       }
-      return response.json();
-    });
+    } finally {
+      loading = false;
+    }
   }
 
   let handleStep = () => {
@@ -106,8 +119,8 @@
 
 
     {#if $formInputs[0].step === 1}
-    <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" />
-    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" />
+    <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" class="required" />
+    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required" />
     {:else if $formInputs[0].step === 2}
     <Input label="Image" type="file" name="img" id="img" class="form__img" />
     <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
@@ -120,9 +133,9 @@
       </ul>
       {#if $formInputs[0].step === 2}
       <button class="btn btn-outline btn__return" on:click="{() => $formInputs[0].step = 1}">Return</button>
-      <button class="btn btn-primary btn__publish" on:click="{handlePost}">Publish</button>
+      <button class="btn btn-primary btn__publish" on:click="{handlePost}" class:loading={loading}>Publish</button>
       {:else if $formInputs[0].step === 1}
-      <button class="btn btn-outline btn__step" on:click="{handleStep}">Next</button>
+      <button class="btn btn-outline btn__next" on:click="{handleStep}">Next</button>
       {/if}
     </div>
   </div>
@@ -192,7 +205,8 @@
     align-items: center;
   }
   .steps {
-    margin-left: auto;
+    position: absolute;
+    right: 151px;
   }
   .step {
     min-width: 52px;
@@ -214,5 +228,11 @@
   }
   .btn__return {
     order: -1;
+  }
+  .btn__next {
+    margin-left: auto;
+  }
+  .btn__publish {
+    margin-left: auto;
   }
 </style>
