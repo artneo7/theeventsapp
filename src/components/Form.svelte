@@ -11,7 +11,9 @@
   }
 
   let loading;
-  let handlePost = async () => {
+  let handlePost = async (e) => {
+    e.preventDefault();
+
     if (!$formInputs[0].title.trim()) return $formInputs[0].error = 'Please add the event name';
     if ($formInputs[0].date.trim().length !== 10) return $formInputs[0].error = 'Please add the event date';
 
@@ -44,7 +46,8 @@
     }
   }
 
-  let handleStep = () => {
+  let handleStep = (e) => {
+    e.preventDefault();
     if (!$formInputs[0].type) return $formInputs[0].error = 'Please select an event type';
     $formInputs[0].step = 2;
   }
@@ -57,7 +60,7 @@
   }
 </script>
 
-<section class="form">
+<form class="form">
   <div class="form__wrapper">
     <ul use:autoAnimate>
       <li>Add a new</li>
@@ -133,7 +136,7 @@
       </ul>
       {#if $formInputs[0].step === 2}
       <button class="btn btn-outline btn__return" on:click="{() => $formInputs[0].step = 1}">Return</button>
-      <button class="btn btn-primary btn__publish" on:click="{handlePost}" class:loading={loading}>Publish</button>
+      <button type="submit" class="btn btn-primary btn__publish" on:click="{handlePost}" class:loading={loading}>Publish</button>
       {:else if $formInputs[0].step === 1}
       <button class="btn btn-outline btn__next" on:click="{handleStep}">Next</button>
       {/if}
@@ -142,7 +145,7 @@
 
   <button class="btn btn-sm btn-circle btn-outline form__btn" on:click="{handleClose}">✕</button>
 
-</section>
+</form>
 
 <style>
   .form {

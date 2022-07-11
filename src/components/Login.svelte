@@ -8,7 +8,8 @@
   let loading;
   let error;
 
-  let handleLogin = async () => {
+  let handleLogin = async (e) => {
+    e.preventDefault();
     error = '';
     
     if (!email.trim()) {
@@ -50,14 +51,14 @@
   }
 </script>
 
-<section class="login">
+<form class="login">
   <h1 class="title">Login</h1>
   <Input bind:value={email} label="Email" class="form__login" />
   <Input bind:value={password} label="Password" type="password" class="form__login" />
   <Error {error} />
 
   <button class="btn btn-outline" class:loading={loading} on:click="{handleLogin}">Log in</button>
-</section>
+</form>
 
 <style>
   .login {
