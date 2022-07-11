@@ -1,8 +1,8 @@
 <script>
   import Form from '../components/Form.svelte';
   import Preview from '../components/Preview.svelte';
-  import {TOKEN_POST, EVENT_POST, TOKEN_VALIDATE_POST} from '../api';
-  import {formInputs} from '../stores';
+  import { TOKEN_POST, EVENT_POST, TOKEN_VALIDATE_POST } from '../api';
+  import { formInputs }  from '../stores';
   import { getCookie } from '../helpers';
 </script>
 

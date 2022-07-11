@@ -6,6 +6,9 @@
   export let value = '';
   export let mask = false;
   export let maxlength = null;
+  export let name = null;
+  export let id = null;
+  export let files = null;
 
   export let type = 'text';
   const setType = (node) => {
@@ -21,22 +24,22 @@
   {#if mask}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" use:imask={options} {maxlength} />
+    <input bind:value use:setType {placeholder} class="input input-bordered w-full" use:imask={options} {maxlength} />
   </label>
   {:else if type === 'file'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full form__file" id="file_input" type="file" {maxlength}>
+    <input bind:files use:setType {placeholder} class="input input-bordered w-full form__file" type="file" {maxlength} {name} {id}>
   </label>
   {:else if type === 'textarea'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <textarea bind:value {placeholder} on:input class="textarea textarea-bordered w-full"></textarea>
+    <textarea bind:value {placeholder} class="textarea textarea-bordered w-full"></textarea>
   </label>
   {:else}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value on:input use:setType {placeholder} class="input input-bordered w-full" {maxlength}/>
+    <input bind:value use:setType {placeholder} class="input input-bordered w-full" {maxlength}/>
   </label>
   {/if}
 </div>
