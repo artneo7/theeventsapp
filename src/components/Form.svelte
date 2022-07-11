@@ -1,6 +1,6 @@
 <script>
   import autoAnimate from '@formkit/auto-animate';
-  import {editMode, formInputs} from '../stores';
+  import { editMode, formInputs, step, uploadFiles } from '../stores';
   import Input from '../components/Input.svelte'
   import { EVENT_POST } from '../api';
   import { getCookie } from '../helpers';
@@ -52,20 +52,24 @@
   let handleStep = (e) => {
     e.preventDefault();
     if (!$formInputs[0].type) return $formInputs[0].error = 'Please select an event type';
-    $formInputs[0].step = 2;
+    $step = 2;
   }
 
   let handleClose = (e) => {
     e.preventDefault();
     $editMode = false;
     currentEvent = null;
-    $formInputs[0].type = null;
     $formInputs[0].preview = null;
+    $formInputs[0].type = '';
+    $formInputs[0].title = '';
+    $formInputs[0].date = '';
+    $formInputs[0].description = '';
+    $uploadFiles = [];
   }
 
   let files = [];
   let handleImagePreview = () => {
-    $formInputs[0].files = files;
+    $uploadFiles = files;
   }
 </script>
 
@@ -85,7 +89,7 @@
       <li>&nbsp;event</li>
     </ul>
 
-    {#if $formInputs[0].step === 1}
+    {#if $step === 1}
     <div class="types">
       <div class="type">
         <input
@@ -130,10 +134,10 @@
     {/if}
 
 
-    {#if $formInputs[0].step === 1}
+    {#if $step === 1}
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" class="required" />
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required" />
-    {:else if $formInputs[0].step === 2}
+    {:else if $step === 2}
     <Input bind:files on:change="{handleImagePreview}" label="Image" type="file" name="img" id="img" class="form__img" />
     <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
     {/if}
@@ -141,12 +145,12 @@
     <div class="form__group">
       <ul class="steps">
         <li data-content="1" class="step step-neutral"></li>
-        <li data-content="2" class="step" class:step-neutral={$formInputs[0].step === 2}></li>
+        <li data-content="2" class="step" class:step-neutral={$step === 2}></li>
       </ul>
-      {#if $formInputs[0].step === 2}
-      <button class="btn btn-outline btn__return" on:click="{() => $formInputs[0].step = 1}">Return</button>
+      {#if $step === 2}
+      <button class="btn btn-outline btn__return" on:click="{() => $step = 1}">Return</button>
       <button type="submit" class="btn btn-primary btn__publish" on:click="{handlePost}" class:loading={loading}>Publish</button>
-      {:else if $formInputs[0].step === 1}
+      {:else if $step === 1}
       <button class="btn btn-outline btn__next" on:click="{handleStep}">Next</button>
       {/if}
     </div>

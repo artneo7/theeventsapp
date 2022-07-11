@@ -1,12 +1,11 @@
 <script>
-  import { formInputs } from '../stores';
+  import { formInputs, uploadFiles } from '../stores';
   import { fly } from 'svelte/transition';
   import Error from './Error.svelte';
   let title = '';
   let date = '';
   let description = '';
   let error = '';
-  let files = [];
 
   $: if ($formInputs[0].type) {
     $formInputs[0].preview = true;
@@ -31,11 +30,12 @@
 
   {#if $formInputs[0].preview}
   <section class:preview="{$formInputs[0].type}" transition:fly={{ y: -32 }}>
-    {#each $formInputs[0].files as file}
+    {#each $uploadFiles as file}
     <div class="preview__img preview__img--ok" style="background-image: url({URL.createObjectURL(file)})"></div>
     {:else}
     <div class="preview__img"></div>
     {/each}
+
     <span class="preview__title" in:fly="{{ y: -16, delay: 500 }}">{title}</span>
     <div class="preview__date" class:active={date}>{date}</div>
     <div class="preview__type" class:blue="{$formInputs[0].type === 'Birthday'}" class:red="{$formInputs[0].type === 'Relationship'}" class:green="{$formInputs[0].type === 'Important'}" in:fly="{{ x: 64, delay: 300 }}">

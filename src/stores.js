@@ -2,15 +2,18 @@ import { writable } from 'svelte/store';
 const store = writable(null);
 
 export const editMode = writable(null);
+
+export const step = writable(1);
+
 export const formInputs = writable([{
-  step: 1,
   preview: '',
   type: '',
   title: '',
   date: '',
   description: '',
-  error: '',
-  files: ''
+  error: ''
 }]);
+
+export const uploadFiles = writable([]);
 
 export default store;
