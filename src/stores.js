@@ -9,7 +9,8 @@ export const formInputs = writable([{
   title: '',
   date: '',
   description: '',
-  error: ''
+  error: '',
+  files: ''
 }]);
 
 export default store;

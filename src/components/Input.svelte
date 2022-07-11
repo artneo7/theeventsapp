@@ -29,7 +29,7 @@
   {:else if type === 'file'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:files use:setType {placeholder} class="input input-bordered w-full form__file" type="file" {maxlength} {name} {id}>
+    <input bind:files on:change accept="image/*" use:setType {placeholder} class="input input-bordered w-full form__file" type="file" {maxlength} {name} {id}>
   </label>
   {:else if type === 'textarea'}
   <label class="label">

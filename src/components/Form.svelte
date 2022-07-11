@@ -5,8 +5,6 @@
   import { EVENT_POST } from '../api';
   import { getCookie } from '../helpers';
 
-  let files;
-  
   let currentEvent;
   $: if (currentEvent) {
     $formInputs[0].type = currentEvent;
@@ -63,6 +61,11 @@
     currentEvent = null;
     $formInputs[0].type = null;
     $formInputs[0].preview = null;
+  }
+
+  let files = [];
+  let handleImagePreview = () => {
+    $formInputs[0].files = files;
   }
 </script>
 
@@ -131,7 +134,7 @@
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" class="required" />
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required" />
     {:else if $formInputs[0].step === 2}
-    <Input bind:files label="Image" type="file" name="img" id="img" class="form__img" />
+    <Input bind:files on:change="{handleImagePreview}" label="Image" type="file" name="img" id="img" class="form__img" />
     <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
     {/if}
 

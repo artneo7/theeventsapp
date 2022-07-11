@@ -1,9 +1,7 @@
 <script>
   import Form from '../components/Form.svelte';
   import Preview from '../components/Preview.svelte';
-  import { TOKEN_POST, EVENT_POST, TOKEN_VALIDATE_POST } from '../api';
-  import { formInputs }  from '../stores';
-  import { getCookie } from '../helpers';
+  import EventsList from '../components/EventsList.svelte';
 </script>
 
 <svelte:head>
@@ -11,6 +9,9 @@
 </svelte:head>
 
 <main class="main">
+  <div class="main__wrapper wrap">
+    <EventsList />
+  </div>
   <div class="main__wrapper wrap">
     <Form />
     <Preview />
