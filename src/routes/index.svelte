@@ -9,10 +9,10 @@
 </svelte:head>
 
 <main class="main">
-  <div class="main__wrapper wrap">
+  <div class="events wrap">
     <EventsList />
   </div>
-  <div class="main__wrapper wrap">
+  <div class="add-new wrap">
     <Form />
     <Preview />
   </div>
@@ -22,7 +22,7 @@
   .main {
     margin-top: 40px;
   }
-  .main__wrapper {
+  .add-new {
     display: grid;
     grid-template-columns: 1fr 320px;
     gap: 20px;

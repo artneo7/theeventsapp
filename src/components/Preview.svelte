@@ -77,7 +77,7 @@
     z-index: 1;
   }
   .preview__img--ok {
-    border-color: transparent;
+    border: none;
     background-position: center;
     background-size: cover;
   }

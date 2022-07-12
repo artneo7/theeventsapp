@@ -6,8 +6,6 @@
   import { EVENT_POST } from '../api';
   import { getCookie } from '../helpers';
 
-  $: console.log($uploadFiles.length);
-
   let currentEvent;
   $: if (currentEvent) {
     $formInputs[0].type = currentEvent;

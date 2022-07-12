@@ -10,6 +10,7 @@ export const handle = async ({event, resolve}) => {
     await fetch(url, options).then((response) => {
       if (response.ok) {
         event.locals.isLoggedIn = true;
+        event.locals.token = session;
       }
     });
   }
@@ -19,8 +20,9 @@ export const handle = async ({event, resolve}) => {
 };
 
 export function getSession(event) {
-  const { isLoggedIn } = event.locals;
+  const { isLoggedIn, token } = event.locals;
   return {
-      isLoggedIn
+      isLoggedIn,
+      token
   };
 }
