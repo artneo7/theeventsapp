@@ -3,7 +3,6 @@
   import { editMode } from '../stores';
   import Modal from './Modal.svelte';
   import Login from './Login.svelte'
-  import { goto } from '$app/navigation'
   
   export let login;
 

@@ -21,8 +21,17 @@
 </script>
 
 {#if $session.isLoggedIn}
-<h1>Events List</h1>
-{#each events as event}
-  <Event {event} />
-{/each}
+<div class="events">
+  {#each events as event}
+    <Event {event} />
+  {/each}
+</div>
 {/if}
+
+<style>
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+</style>

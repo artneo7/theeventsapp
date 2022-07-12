@@ -60,7 +60,7 @@
     border: 2px dashed var(--g3);
     border-radius: 16px;
     padding: 32px;
-    height: 360px;
+    min-height: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
