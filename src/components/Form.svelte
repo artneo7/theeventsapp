@@ -34,7 +34,7 @@
 
     try {
       await fetch(url, options).then((response) => {
-        if (!response.ok) throw new Error(response.statusText)
+        if (!response.ok) throw new Error(response.statusText);
       });
     } catch(err) {
       if (err instanceof TypeError) {

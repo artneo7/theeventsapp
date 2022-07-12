@@ -1,7 +1,15 @@
 <script>
-  import { fly } from 'svelte/transition';
-
   export let event;
+  
+  import Modal from './Modal.svelte';
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
+  function getId() {
+		dispatch('eventId', {
+			id: event.id
+		});
+	}
 
   // Change icon based on category
   let icon;
@@ -10,7 +18,7 @@
   if (event.category === 'Important') icon = '/icon-important.png';
 </script>
 
-<div class="event" transition:fly={{ y: -16 }}>
+<div class="event">
   <img src="{icon}" alt="Party emoji" class="event__icon">
   <div class="event__circle" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}"></div>
 
@@ -20,6 +28,8 @@
 
   <h2>{event.title}</h2>
 
+  <label class="btn modal-button" for="delete-event">Delete</label>
+
   <span class="event__date">{event.date.slice(0, 5)}</span>
 
   <div class="event__type" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}">
@@ -28,6 +38,14 @@
     <span class="line-3"></span>
   </div>
 </div>
+
+<Modal id="delete-event">
+  <h2>Are you sure that you want to delete the event?</h2>
+  <div class="delete__btns">
+    <button class="btn btn-primary" on:click="{getId}">Yep, delete it</button>
+    <label for="delete-event" class="btn btn-outline">Nah, nevermind</label>
+  </div>
+</Modal>
 
 <style>
   .event {
@@ -83,7 +101,7 @@
     transform: rotate(-45deg);
     position: absolute;
     top: 0;
-    right: -80px;
+    right: -108px;
   }
   .event__type .line-1 {
     display: block;

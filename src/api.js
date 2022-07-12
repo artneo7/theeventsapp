@@ -25,6 +25,18 @@ export function EVENT_POST(formData, token) {
   };
 }
 
+export function EVENT_DELETE(id, token) {
+  return {
+    url: `${API_URL}/api/event/${id}`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    },
+  };
+}
+
 export function TOKEN_POST(body) {
   return {
     url: API_URL + '/jwt-auth/v1/token',
