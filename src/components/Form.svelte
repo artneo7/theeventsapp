@@ -2,8 +2,11 @@
   import autoAnimate from '@formkit/auto-animate';
   import { editMode, formInputs, step, uploadFiles } from '../stores';
   import Input from '../components/Input.svelte'
+  import Success from '../components/Success.svelte'
   import { EVENT_POST } from '../api';
   import { getCookie } from '../helpers';
+
+  $: console.log($uploadFiles.length);
 
   let currentEvent;
   $: if (currentEvent) {
@@ -138,7 +141,11 @@
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" class="required" />
     <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required" />
     {:else if $step === 2}
-    <Input bind:files on:change="{handleImagePreview}" label="Image" type="file" name="img" id="img" class="form__img" />
+      {#if $uploadFiles.length === 0}
+      <Input bind:files on:change="{handleImagePreview}" label="Image" type="file" name="img" id="img" class="form__img" />
+      {:else}
+      <Success message="Image added successfully 🎉" text="Image" class="gap" />
+      {/if}
     <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
     {/if}
 
