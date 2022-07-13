@@ -1,4 +1,6 @@
 <script>
+  import { focusLogin } from '../stores';
+
   export let id;
 </script>
 
@@ -9,9 +11,7 @@
 <input type="checkbox" id="{id}" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box relative">
-    <label for="{id}" class="btn btn-sm btn-circle btn-outline absolute right-2 top-2"
-      >✕</label
-    >
+    <label for="{id}" class="btn btn-sm btn-circle btn-outline absolute right-2 top-2" on:click="{() => $focusLogin = false}">✕</label>
     <slot />
   </div>
 </div>

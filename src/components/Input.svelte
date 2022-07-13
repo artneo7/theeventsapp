@@ -4,20 +4,28 @@
   export let label = '';
   export let placeholder = '';
   export let value = '';
-  export let mask = false;
   export let maxlength = null;
   export let name = null;
   export let id = null;
   export let files = null;
+  
+  export let mask = false;
+  const options = { 
+    mask: mask
+  };
 
   export let type = 'text';
   const setType = (node) => {
     node.type = type;
   };
 
-  const options = { 
-		mask: mask
-	};
+  export let focus = false;
+  const focusInput = (node) => {
+    setTimeout(() => {
+      node.focus();
+    }, 125);
+  }
+
 </script>
 
 <div class="form-control w-full {$$props.class}">
@@ -36,10 +44,15 @@
     <span class="label-text">{label}</span>
     <textarea bind:value {placeholder} class="textarea textarea-bordered w-full"></textarea>
   </label>
+  {:else if focus}
+  <label class="label">
+    <span class="label-text">{label}</span>
+    <input bind:value use:setType {placeholder} class="input input-bordered w-full" {maxlength} {focus} use:focusInput />
+  </label>
   {:else}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:value use:setType {placeholder} class="input input-bordered w-full" {maxlength}/>
+    <input bind:value use:setType {placeholder} class="input input-bordered w-full" {maxlength} />
   </label>
   {/if}
 </div>

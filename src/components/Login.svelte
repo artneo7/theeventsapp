@@ -53,7 +53,7 @@
 
 <form class="login">
   <h1 class="title">Login</h1>
-  <Input bind:value={email} label="Email" class="form__login" />
+  <Input bind:value={email} label="Email" class="form__login" focus />
   <Input bind:value={password} label="Password" type="password" class="form__login" />
   <Error {error} />
 

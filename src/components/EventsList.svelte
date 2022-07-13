@@ -7,8 +7,6 @@
 
   let events = [];
 
-  $: console.log(events);
-
   const fetchEvents = () => {
     if (!$session.token) return;
     

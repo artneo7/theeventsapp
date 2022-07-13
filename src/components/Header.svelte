@@ -1,20 +1,24 @@
 <script>
-  import UserProfile from '../components/UserProfile.svelte';
-  import { editMode } from '../stores';
+  import { editMode, focusLogin } from '../stores';
   import Modal from './Modal.svelte';
   import Login from './Login.svelte'
   
   export let login;
 
   // Manage editMode state
-  let addNewHandler = () => {
+  const addNewHandler = () => {
     $editMode = !$editMode;
   };
 
   // Handle Logout
-  let handleLogout = () => {
+  const handleLogout = () => {
     document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     location.reload();
+  }
+
+  // Focus login modal
+  const handleFocusLogin = () => {
+    $focusLogin = true;
   }
 </script>
 
@@ -37,15 +41,17 @@
     {:else}
     <div class="content">
       <label class="btn btn-outline modal-button" for="signup-form">Sign up</label>
-      <label class="btn btn-ghost modal-button" for="login-form">Login</label>
+      <label class="btn btn-ghost modal-button" for="login-form" on:click="{handleFocusLogin}">Login</label>
     </div>
     {/if}
   </div>
 </header>
 
+{#if $focusLogin}
 <Modal id="login-form">
   <Login />
 </Modal>
+{/if}
 
 <style>
   .header {
