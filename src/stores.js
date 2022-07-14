@@ -14,4 +14,6 @@ export const formInputs = writable([{
 
 export const uploadFiles = writable([]);
 export const focusLogin = writable(false);
+export const eventSelected = writable(0);
+
 export default store;
