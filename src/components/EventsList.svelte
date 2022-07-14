@@ -6,6 +6,7 @@
   import autoAnimate from '@formkit/auto-animate';
 
   let events = [];
+  let loading;
 
   const fetchEvents = () => {
     if (!$session.token) return;

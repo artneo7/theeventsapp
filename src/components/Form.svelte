@@ -34,8 +34,13 @@
 
     try {
       await fetch(url, options).then((response) => {
-        if (!response.ok) throw new Error(response.statusText);
-      });
+        if (response.ok) return $formInputs[0].error = "Event successfully added";
+        return response.json();
+      }).then((json) => {
+        if (json.code) {
+          $formInputs[0].error = json.message;
+        }
+      })
     } catch(err) {
       if (err instanceof TypeError) {
         err = "Something went wrong… please contact the developer";
