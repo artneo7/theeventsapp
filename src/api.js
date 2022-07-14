@@ -25,6 +25,19 @@ export function EVENT_POST(formData, token) {
   };
 }
 
+export function EVENT_PUT(formData, token) {
+  return {
+    url: API_URL + '/api/event/update',
+    options: {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token
+      },
+      body: formData,
+    },
+  };
+}
+
 export function EVENT_DELETE(id, token) {
   return {
     url: `${API_URL}/api/event/${id}`,
