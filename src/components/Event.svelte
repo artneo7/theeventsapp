@@ -125,21 +125,21 @@
     border-radius: 50%;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
     transform: translate3d(0, 0, 0);
-    transition: 450ms;
+    transition: 300ms;
   }
   .event.active .event__img {
     transform: translate3d(0, 60px, 0);
-    transition: 450ms;
+    transition: 300ms;
   }
   .event__title {
     color: var(--g6);
     font-weight: bold;
     transform: translate3d(0, 0, 0);
-    transition: 450ms;
+    transition: 300ms;
   }
   .event.active.has-img .event__title {
     transform: translate3d(-60px, 0, 0);
-    transition: 450ms;
+    transition: 300ms;
   }
   .event__date {
     color: var(--g5);
@@ -180,7 +180,7 @@
     margin-right: 8px;
     opacity: 0;
     transform: translate3d(0, 4px, 0);
-    transition: 450ms;
+    transition: 300ms;
   }
   .event.active .update {
     opacity: 1;

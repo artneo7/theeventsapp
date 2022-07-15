@@ -127,4 +127,7 @@
     color: var(--feat);
     margin-left: 2px;
   }
+  .padding-bottom {
+    padding-bottom: 16px;
+  }
 </style>

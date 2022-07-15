@@ -4,10 +4,8 @@
   import { session } from '$app/stores';
   import Event from './Event.svelte';
   import autoAnimate from '@formkit/auto-animate';
-
-  let events = [];
-  let loading;
-
+  import { eventsList } from '../stores';
+  
   const fetchEvents = () => {
     if (!$session.token) return;
     
@@ -17,7 +15,7 @@
       fetch(url, options).then((response) => {
         return response.json();
       }).then((data) => {
-        return events = data;
+        return $eventsList = data;
       });
     } catch(err) {}
   }
@@ -31,7 +29,7 @@
       const { url, options } = EVENT_DELETE(event.detail.id, $session.token);
       await fetch(url, options).then((response) => {
         if (!response.ok) throw new Error(response.statusText);
-        events = events.filter((e) => e.id !== event.detail.id);
+        $eventsList = $eventsList.filter((e) => e.id !== event.detail.id);
       });
     } catch(err) {
       loading = false;
@@ -43,7 +41,7 @@
 
 {#if $session.isLoggedIn}
 <div class="events" use:autoAnimate>
-  {#each events as event (event.id)}
+  {#each $eventsList as event (event.id)}
     <Event {event} on:eventId="{handleDelete}" />
   {/each}
 </div>

@@ -1,6 +1,6 @@
 <script>
   import autoAnimate from '@formkit/auto-animate';
-  import { editMode, formInputs, step, uploadFiles } from '../stores';
+  import { editMode, formInputs, step, uploadFiles, eventsList } from '../stores';
   import Input from '../components/Input.svelte'
   import Success from '../components/Success.svelte'
   import { EVENT_POST } from '../api';
@@ -27,16 +27,24 @@
       formData.append('img', files[0]);
     }
 
-    const token = getCookie('session');
-
     loading = true;
+    const token = getCookie('session');
     const {url, options} = EVENT_POST(formData, token);
 
     try {
       await fetch(url, options).then((response) => {
-        if (response.ok) return $formInputs[0].error = "Event successfully added";
         return response.json();
       }).then((json) => {
+        if (json.id) {
+          $eventsList = [{
+            id: json.id,
+            category: json.category,
+            title: json.post_title,
+            date: json.meta_input.date,
+            description: json.post_content,
+            img: json.img
+          }, ...$eventsList]
+        }
         if (json.code) {
           $formInputs[0].error = json.message;
         }
@@ -64,6 +72,7 @@
   let handleClose = (e) => {
     e.preventDefault();
     $editMode = false;
+    $step = 1;
     currentEvent = null;
     $formInputs[0].preview = null;
     $formInputs[0].type = '';
@@ -149,7 +158,7 @@
 
     {#if $step === 1}
     <Input bind:value={$formInputs[0].title} label="Event name" placeholder="Type the event name here" class="required" />
-    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required" />
+    <Input bind:value={$formInputs[0].date} label="Date" mask="00/00/0000" maxlength="10" placeholder="Type the event date here" class="required padding-bottom" />
     {:else if $step === 2}
       {#if $uploadFiles.length === 0}
       <Input bind:files on:change="{handleImagePreview}" label="Image" type="file" name="img" id="img" class="form__img" />
@@ -182,7 +191,7 @@
     position: relative;
   }
   .form__wrapper {
-    min-height: 460px;
+    min-height: 471px;
     padding: 32px;
     background-color: #fff;
     border-radius: 16px;

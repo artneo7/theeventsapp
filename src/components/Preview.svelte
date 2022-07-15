@@ -29,7 +29,7 @@
   <Error {error} class="preview__alert" />
 
   {#if $formInputs[0].preview}
-  <section class:preview="{$formInputs[0].type}" transition:fly={{ y: -32 }}>
+  <section class:preview="{$formInputs[0].type}" in:fly={{ y: -32 }}>
     {#each $uploadFiles as file}
     <div class="preview__img preview__img--ok" style="background-image: url({URL.createObjectURL(file)})"></div>
     {:else}
