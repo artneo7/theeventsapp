@@ -37,12 +37,12 @@
   {:else if type === 'file'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <input bind:files on:change accept="image/*" use:setType {placeholder} class="input input-bordered w-full form__file" type="file" {maxlength} {name} {id}>
+    <input bind:files on:change accept="image/*" use:setType {placeholder} class="input input-bordered w-full form__file" type="file" {name} {id}>
   </label>
   {:else if type === 'textarea'}
   <label class="label">
     <span class="label-text">{label}</span>
-    <textarea bind:value {placeholder} class="textarea textarea-bordered w-full"></textarea>
+    <textarea bind:value on:input {placeholder} {maxlength} class="textarea textarea-bordered w-full"></textarea>
   </label>
   {:else if focus}
   <label class="label">
@@ -120,7 +120,7 @@
     display: none;
   }
   .form-control textarea {
-    min-height: 116px;
+    min-height: 132px;
   }
   .required .label-text::after {
     content: "*";

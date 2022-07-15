@@ -77,6 +77,13 @@
   let handleImagePreview = () => {
     $uploadFiles = files;
   }
+
+  const checkLength = (e) => {
+    const length = e.target.value.length;
+    if (length === 330) {
+      $formInputs[0].error = "Maximum number of 330 characters reached";
+    }
+  }
 </script>
 
 <form class="form">
@@ -149,7 +156,7 @@
       {:else}
       <Success message="Image added successfully 🎉" text="Image" class="gap" />
       {/if}
-    <Input bind:value={$formInputs[0].description} label="Description" type="textarea" placeholder="Type the event description here" />
+    <Input bind:value={$formInputs[0].description} on:input="{checkLength}" label="Description" type="textarea" placeholder="Type the event description here" maxlength="330" />
     {/if}
 
     <div class="form__group">
@@ -202,7 +209,9 @@
     gap: 6px;
   }
   .type__label {
+    color: var(--g6);
     cursor: pointer;
+    user-select: none;
   }
   .blue {
     color: var(--birthday);

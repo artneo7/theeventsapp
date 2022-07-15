@@ -19,11 +19,21 @@
   if (event.category === 'Important') icon = '/icon-important.png';
 
   const handleEventSelect = () => {
-    $eventSelected = event.id;
+    if ($eventSelected === event.id) {
+      $eventSelected = 0;
+    } else {
+      $eventSelected = event.id;
+    }
   }
+
+  // Check years
+  let date = event.date;
+  let start = +date.slice(-4);
+  let currentYear = new Date().getFullYear();
+  let year = currentYear - start;
 </script>
 
-<div class="event" on:click="{handleEventSelect}" class:active="{$eventSelected === event.id}" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}">
+<div class="event" on:click="{handleEventSelect}" class:active="{$eventSelected === event.id}" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}" class:has-img="{event.img}">
   <img src="{icon}" alt="Party emoji" class="event__icon">
   <div class="event__circle" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}"></div>
 
@@ -47,12 +57,14 @@
   </div>
 </div>
 
-{#if event.description && $eventSelected === event.id}
-<section class="info">
+{#if $eventSelected === event.id}
+<section class="info" class:blue="{event.category === 'Birthday'}" class:red="{event.category === 'Relationship'}" class:green="{event.category === 'Important'}" class:change-padding={event.img || event.description} class:fixed-height={!event.img && !event.description}>
+  {#if event.img}
   <img src="{event.img}" alt="Image of {event.title}" class="info__img">
+  {/if}
   <div class="info__content">
-    <span>30 years</span>
-    <p>{event.description}</p>
+    <span class="info__date">{year} {year > 1 ? 'years' : 'year'}</span>
+    <p class="info__description">{event.description}</p>
   </div>
 </section>
 {/if}
@@ -112,10 +124,22 @@
     max-width: 40px;
     border-radius: 50%;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
+    transform: translate3d(0, 0, 0);
+    transition: 450ms;
+  }
+  .event.active .event__img {
+    transform: translate3d(0, 60px, 0);
+    transition: 450ms;
   }
   .event__title {
-    color: var(--g5);
+    color: var(--g6);
     font-weight: bold;
+    transform: translate3d(0, 0, 0);
+    transition: 450ms;
+  }
+  .event.active.has-img .event__title {
+    transform: translate3d(-60px, 0, 0);
+    transition: 450ms;
   }
   .event__date {
     color: var(--g5);
@@ -176,14 +200,40 @@
     stroke: var(--g5);
   }
   .info {
-    display: grid;
-    grid-template-columns: 140px 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: 24px;
-    padding: 32px 16px;
+    padding: 16px 16px 10px;
     background-color: #fff;
     border: 2px solid var(--g3);
     border-radius: 16px;
     margin-top: -12px;
     margin-bottom: 4px;
+    overflow: hidden;
+    height: 208px;
+  }
+  .info__img {
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor;
+    max-width: 140px;
+  }
+  .info__date {
+    display: inline-block;
+    color: var(--g5);
+    background-color: var(--g1);
+    padding: 0px 12px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+  }
+  .info__description {
+    color: var(--g6);
+    max-width: 680px;
+  }
+  .change-padding {
+    padding: 32px 16px;
+  }
+  .fixed-height {
+    height: 62px;
   }
 </style>
