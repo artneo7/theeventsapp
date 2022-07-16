@@ -83,20 +83,17 @@ body {
 /* Firefox */
 * {
   scrollbar-width: auto;
-  scrollbar-color: var(--g5) #fff;
+  scrollbar-color: var(--g6) var(--g3);
 }
-
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 16px;
 }
-
 *::-webkit-scrollbar-track {
-  background: var(--g1);
+  background: var(--g3);
 }
-
 *::-webkit-scrollbar-thumb {
-  background-color: var(--g5);
+  background-color: var(--g6);
   border-radius: 16px;
-  border: 5px double #fff;
+  border: 5px solid var(--g3);
 }

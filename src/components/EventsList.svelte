@@ -3,21 +3,28 @@
   import { onMount } from 'svelte';
   import { session } from '$app/stores';
   import Event from './Event.svelte';
+  import Skeleton from './Skeleton.svelte';
   import autoAnimate from '@formkit/auto-animate';
   import { eventsList } from '../stores';
-  
-  const fetchEvents = () => {
-    if (!$session.token) return;
-    
+
+  let skeleton;
+
+  const fetchEvents = async () => {
+    if (!$session.token) return;    
+    skeleton = true;
     try {
       const { url, options } = EVENTS_GET($session.token);
-    
-      fetch(url, options).then((response) => {
+      await fetch(url, options).then((response) => {
         return response.json();
       }).then((data) => {
+        skeleton = false;
         return $eventsList = data;
       });
-    } catch(err) {}
+    } catch(err) {
+      skeleton = false;
+    } finally {
+      skeleton = false;
+    }
   }
   
   onMount(() => {
@@ -38,6 +45,10 @@
     }
 	}
 </script>
+
+{#if skeleton}
+<Skeleton />
+{/if}
 
 {#if $session.isLoggedIn}
 <div class="events" use:autoAnimate>

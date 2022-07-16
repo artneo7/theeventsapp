@@ -10,6 +10,7 @@
     position: relative;
     top: 52px;
     background-color: var(--g1);
+    padding-top: 320px;
   }
   .footer__wrapper {
     height: 52px;
