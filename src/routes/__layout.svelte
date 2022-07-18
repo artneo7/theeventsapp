@@ -24,9 +24,9 @@
   <link rel="icon" type="image/svg" href="/logo.png" />
 </svelte:head>
 
-{#if !session.intro}
+<!-- {#if !session.intro} -->
 <IntroAnimation />
-{/if}
+<!-- {/if} -->
 
 <Header login={session.isLoggedIn} />
 <slot />
