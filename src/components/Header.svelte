@@ -4,9 +4,11 @@
   import Login from './Login.svelte'
   
   export let login;
+  let tiny_click;
 
   // Manage editMode state
   const addNewHandler = () => {
+    tiny_click.play();
     $editMode = !$editMode;
   };
 
@@ -46,6 +48,8 @@
     {/if}
   </div>
 </header>
+
+<audio src="/sounds/tiny_click.mp3" bind:this={tiny_click}></audio>
 
 {#if $focusLogin}
 <Modal id="login-form">

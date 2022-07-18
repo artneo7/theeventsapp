@@ -2,16 +2,11 @@ import { TOKEN_VALIDATE_POST } from './api';
 export const handle = async ({event, resolve}) => {
 
   event.locals.isLoggedIn = false;
-  
-  // Check if intro was already played
-  let intro = event.request.headers.get('cookie');
-  if (intro) intro = intro.replace('intro=', '');
-  event.locals.intro = intro;
 
   // Check if user is logged in
-  let session = event.request.headers.get('cookie');
-  if (session) {
-    session = session.replace('session=', '');
+  let cookies = event.request.headers.get('cookie');
+  if (cookies) {
+    let session = ('; '+cookies).split(`; session=`).pop().split(';')[0];
     const {url, options} = TOKEN_VALIDATE_POST(session);
     await fetch(url, options).then((response) => {
       if (response.ok) {
@@ -20,6 +15,10 @@ export const handle = async ({event, resolve}) => {
       }
     });
   }
+
+  // Check if intro was already played
+  let intro = ('; '+cookies).split(`; intro=`).pop().split(';')[0];
+  if (intro) event.locals.intro = intro;
   
   const response = await resolve(event);
   return response;
