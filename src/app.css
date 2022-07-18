@@ -23,6 +23,10 @@
   --g6: #718096;
   --g7: #4A5568;
 }
+html {
+  overflow-y: scroll;
+  overflow-y: overlay;
+}
 body {
   height: 100vh;
   background-color: var(--g1);
@@ -87,7 +91,7 @@ body {
 }
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 16px;
+  width: 8px;
 }
 *::-webkit-scrollbar-track {
   background: var(--g3);
@@ -95,5 +99,5 @@ body {
 *::-webkit-scrollbar-thumb {
   background-color: var(--g6);
   border-radius: 16px;
-  border: 5px solid var(--g3);
+  border: 1px solid var(--g3);
 }

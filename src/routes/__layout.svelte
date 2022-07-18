@@ -12,7 +12,8 @@
   import '../app.css';
   import Header from '../components/Header.svelte';
   import Footer from '../components/Footer.svelte';
-
+  import IntroAnimation from '../components/IntroAnimation.svelte';
+  
   export let session;
 </script>
 
@@ -22,6 +23,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg" href="/logo.png" />
 </svelte:head>
+
+{#if !session.intro}
+<IntroAnimation />
+{/if}
 
 <Header login={session.isLoggedIn} />
 <slot />
